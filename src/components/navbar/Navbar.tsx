@@ -1,20 +1,26 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../hooks/typedReduxHooks";
-import { logOut } from "../../app/features/authSlice";
+import { logOut, getUserWithSessionId } from "../../app/features/authSlice";
 import { useEffect } from "react";
 const Navbar = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const { isAuthenticated } = useAppSelector((state) => state.auth);
+	const { isAuthenticated, user, sessionId } = useAppSelector((state) => state.auth);
 	const handelLogout = () => {
 		dispatch(logOut());
 	};
 
+	// Refetch user data when browser is refreshed
 	useEffect(() => {
 		if (isAuthenticated) {
 			navigate("/");
 		}
-	}, [isAuthenticated, navigate]);
+		if (sessionId && !user) {
+			console.log("lol");
+
+			dispatch(getUserWithSessionId(sessionId));
+		}
+	}, [isAuthenticated, navigate, sessionId, dispatch, user]);
 
 	return (
 		<div className='fixed z-50 w-full top-0'>

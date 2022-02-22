@@ -37,7 +37,7 @@ export const getUserWithSessionId = createAsyncThunk("auth/getUserWithSessionId"
 
 interface InitialStateType {
 	isAuthenticated: boolean;
-	user: object;
+	user: object | null;
 	sessionId: string | null;
 	error: string | null;
 	isLoading: boolean;
@@ -46,7 +46,7 @@ interface InitialStateType {
 // initialState of the authSlice
 const initialState: InitialStateType = {
 	isAuthenticated: false,
-	user: {},
+	user: null,
 	sessionId: session_id ? session_id : "",
 	error: "",
 	isLoading: false,
@@ -70,7 +70,7 @@ export const authSlice = createSlice({
 		builder
 			.addCase(getUser.pending, (state, action) => {
 				state.isAuthenticated = false;
-				state.user = {};
+				state.user = null;
 				state.sessionId = null;
 				state.error = null;
 				state.isLoading = true;
@@ -84,7 +84,7 @@ export const authSlice = createSlice({
 			})
 			.addCase(getUser.rejected, (state, action: any) => {
 				state.isAuthenticated = false;
-				state.user = {};
+				state.user = null;
 				state.sessionId = null;
 				state.error = action.payload.message;
 				state.isLoading = false;
@@ -94,7 +94,7 @@ export const authSlice = createSlice({
 		builder
 			.addCase(getUserWithSessionId.pending, (state, action) => {
 				state.isAuthenticated = false;
-				state.user = {};
+				state.user = null;
 				state.sessionId = null;
 				state.error = null;
 				state.isLoading = true;
@@ -109,7 +109,7 @@ export const authSlice = createSlice({
 			.addCase(getUserWithSessionId.rejected, (state, action: any) => {
 				localStorage.removeItem("sessionId");
 				state.isAuthenticated = false;
-				state.user = {};
+				state.user = null;
 				state.sessionId = null;
 				state.error = action.error.message;
 				state.isLoading = false;
