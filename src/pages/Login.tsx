@@ -1,13 +1,17 @@
 import { useState } from "react";
+import { getUser } from "../app/features/authSlice";
+import { useAppDispatch } from "../hooks/typedReduxHooks";
 const Login = () => {
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
+	const dispatch = useAppDispatch();
 	const submitHandler = (e: React.FormEvent) => {
 		e.preventDefault();
 		const userData = {
 			userName,
 			password,
 		};
+		dispatch(getUser(userData));
 	};
 	return (
 		<section className='mt-16 mb-28 sm:mb-0 max-w-7xl mx-auto '>
