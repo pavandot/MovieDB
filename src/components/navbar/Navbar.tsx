@@ -1,11 +1,19 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { useAppSelector, useAppDispatch } from "../../hooks/typedReduxHooks";
 import { logOut, getUserWithSessionId } from "../../app/features/authSlice";
-import { useEffect } from "react";
+import { setProgressBar } from "../../app/features/uiSlice";
+
+// Components
+import ProgressLine from "../loader/ProgressLine";
 const Navbar = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const { isAuthenticated, user, sessionId } = useAppSelector((state) => state.auth);
+
+	const { isAuthenticated, user, sessionId, isLoading } = useAppSelector((state) => state.auth);
+	const { percentage, isLoader } = useAppSelector((state) => state.ui.progressBar);
+
 	const handelLogout = () => {
 		dispatch(logOut());
 	};
@@ -21,6 +29,14 @@ const Navbar = () => {
 			dispatch(getUserWithSessionId(sessionId));
 		}
 	}, [isAuthenticated, navigate, sessionId, dispatch, user]);
+
+	// Update progress bar when user is logged in
+	if (isLoading) {
+		dispatch(setProgressBar(60));
+	}
+	if (!isLoading) {
+		dispatch(setProgressBar(90));
+	}
 
 	return (
 		<div className='fixed z-50 w-full top-0'>
@@ -42,6 +58,17 @@ const Navbar = () => {
 					)}
 				</div>
 			</section>
+			{isLoader && (
+				<ProgressLine
+					// label='Full progressbar'
+					visualParts={[
+						{
+							percentage: `${percentage}%`,
+							color: "#2DBBD0",
+						},
+					]}
+				/>
+			)}
 		</div>
 	);
 };
