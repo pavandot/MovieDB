@@ -35,13 +35,13 @@ export const getUserWithSessionId = createAsyncThunk("auth/getUserWithSessionId"
 	}
 });
 
-interface InitialStateType {
+type InitialStateType = {
 	isAuthenticated: boolean;
 	user: object | null;
 	sessionId: string | null;
 	error: string | null;
 	isLoading: boolean;
-}
+};
 
 // initialState of the authSlice
 const initialState: InitialStateType = {
