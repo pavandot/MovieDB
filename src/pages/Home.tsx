@@ -8,6 +8,7 @@ import HomeShowcase from "../components/home/HomeShowcase";
 import HomePages from "../components/home/HomePages";
 
 // Types
+
 export type mediaType = {
 	title: string;
 	releaseDate: string;
