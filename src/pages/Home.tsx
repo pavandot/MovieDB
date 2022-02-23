@@ -8,8 +8,8 @@ import HomeShowcase from "../components/home/HomeShowcase";
 import HomePages from "../components/home/HomePages";
 
 // Types
-
 export type mediaType = {
+	id: number;
 	title: string;
 	releaseDate: string;
 	poster: string;
@@ -18,10 +18,10 @@ export type mediaType = {
 
 // Fetcher Function
 const fetchMovies = async (pageNumber: number) => {
-	return axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${pageNumber}`);
+	return axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}&language=en-US&page=${pageNumber}`);
 };
 const fetchTv = async (pageNumber: number) => {
-	return axios.get(`https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${pageNumber}`);
+	return axios.get(`https://api.themoviedb.org/3/tv/popular?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}&language=en-US&page=${pageNumber}`);
 };
 
 // Select Function
@@ -29,9 +29,8 @@ const selectMovie = (movies: any) => {
 	const nonStructuredMovies = movies.data.results;
 	const structuredMovies: mediaType[] = [];
 	nonStructuredMovies.forEach((movie: any) => {
-		console.log(movie);
-
 		structuredMovies.push({
+			id: movie.id,
 			title: movie.original_title,
 			releaseDate: movie.release_date,
 			poster: movie.poster_path,
@@ -45,6 +44,7 @@ const selectTv = (tv: any) => {
 	const structuredTv: mediaType[] = [];
 	nonStructuredTv.forEach((show: any) => {
 		structuredTv.push({
+			id: show.id,
 			title: show.original_name,
 			releaseDate: show.first_air_date,
 			poster: show.poster_path,
@@ -80,10 +80,11 @@ const Home = () => {
 		keepPreviousData: true,
 	});
 
-	if (isTvSuccess || isMovieSuccess) {
-		console.log(movies);
-		console.log(tv);
-	}
+	// if (isTvSuccess || isMovieSuccess) {
+	// 	console.log(movies);
+	// 	console.log(tv);
+	// }
+
 	const switchToMovies = () => {
 		setPageNumber(1);
 		if (!isMovieLoading) {
@@ -110,12 +111,12 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
-			<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 m-4 sm:m-6 md:m-10 max-w-5xl lg:mx-auto '>
+			<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 m-4 sm:m-6 md:mx-24 max-w-5xl lg:mx-auto '>
 				{isMovie &&
 					isMovieSuccess &&
 					movies.map((movie) => {
 						return (
-							<div key={movie.title} className='m-3'>
+							<div key={movie.id} className='m-3'>
 								<HomeShowcase media={movie} />
 							</div>
 						);
@@ -124,7 +125,7 @@ const Home = () => {
 					isTvSuccess &&
 					tv.map((tv) => {
 						return (
-							<div key={tv.title} className='m-3'>
+							<div key={tv.id} className='m-3'>
 								<HomeShowcase media={tv} />
 							</div>
 						);

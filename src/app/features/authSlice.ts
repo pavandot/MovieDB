@@ -8,20 +8,20 @@ const session_id = localStorage.getItem("sessionId");
 
 // Get the User
 export const getUser = createAsyncThunk("auth/getUser", async (userData: { userName: string; password: string }) => {
-	const tokenResponse = await axios.get(`${baseURL}/token/new?api_key=${process.env.REACT_APP_API_KEY}`);
+	const tokenResponse = await axios.get(`${baseURL}/token/new?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}`);
 	const token = tokenResponse.data.request_token;
 	const userDataWithToken = {
 		username: userData.userName,
 		password: userData.password,
 		request_token: token,
 	};
-	const verifyResponse = await axios.post(`${baseURL}/token/validate_with_login?api_key=${process.env.REACT_APP_API_KEY}`, userDataWithToken);
+	const verifyResponse = await axios.post(`${baseURL}/token/validate_with_login?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}`, userDataWithToken);
 	const verifiedToken = verifyResponse.data.request_token;
-	const sessionResponse = await axios.post(`${baseURL}/session/new?api_key=${process.env.REACT_APP_API_KEY}`, { request_token: verifiedToken });
+	const sessionResponse = await axios.post(`${baseURL}/session/new?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}`, { request_token: verifiedToken });
 	const sessionId = sessionResponse.data.session_id;
 	localStorage.setItem("sessionId", sessionResponse.data.session_id);
 
-	return axios.get(`https://api.themoviedb.org/3/account?api_key=${process.env.REACT_APP_API_KEY}&session_id=${sessionId}`).then((response) => {
+	return axios.get(`https://api.themoviedb.org/3/account?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}&session_id=${sessionId}`).then((response) => {
 		return response.data;
 	});
 });
@@ -29,7 +29,7 @@ export const getUser = createAsyncThunk("auth/getUser", async (userData: { userN
 // Get the User with sessionId
 export const getUserWithSessionId = createAsyncThunk("auth/getUserWithSessionId", async (sessionId: string) => {
 	if (sessionId) {
-		return axios.get(`https://api.themoviedb.org/3/account?api_key=${process.env.REACT_APP_API_KEY}&session_id=${sessionId}`).then((response) => {
+		return axios.get(`https://api.themoviedb.org/3/account?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}&session_id=${sessionId}`).then((response) => {
 			return response.data;
 		});
 	}
