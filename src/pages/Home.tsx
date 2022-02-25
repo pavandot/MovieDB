@@ -111,7 +111,7 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
-			<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 m-4 sm:m-6 md:mx-24 max-w-5xl lg:mx-auto '>
+			<div className='grid grid-cols-2 justify-items-center sm:grid-cols-3 lg:grid-cols-5  sm:m-6 md:mx-24 max-w-5xl lg:mx-auto min-h-[50rem] '>
 				{isMovie &&
 					isMovieSuccess &&
 					movies.map((movie) => {

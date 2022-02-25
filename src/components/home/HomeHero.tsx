@@ -7,7 +7,7 @@ const HomeHero = () => {
 	};
 	return (
 		<section className=' h-80 relative overflow-hidden mt-16 ' id='media-top'>
-			<img src='https://image.tmdb.org/t/p/original/VuukZLgaCrho2Ar8Scl9HtV3yD.jpg' alt='img' className='w-full h-full sm:h-auto bg-contain ' />
+			<img src='https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,032541,01b4e4)/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg' alt='img' className='w-full h-full  md:bg-cover ' />
 			<div className='absolute bg-primary top-0 bottom-0 left-0 w-full bg-opacity-60 flex justify-center items-center xl:block '>
 				<div className=' m-4 sm:my-6 md:my-10 max-w-5xl mx-3 md:mx-8 xl:mx-auto'>
 					<div>

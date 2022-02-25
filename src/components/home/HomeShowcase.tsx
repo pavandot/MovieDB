@@ -12,9 +12,9 @@ type HomeShowcasePropsType = {
 const HomeShowcase = ({ media }: HomeShowcasePropsType) => {
 	const { title, poster, rating, releaseDate } = media;
 	return (
-		<motion.section className='inline-block h-72  w-full sm:w-[170px] md:w-[180px] ' initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+		<motion.section className='inline-block h-72  w-[160px]  sm:w-[170px] md:w-[180px] ' initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 			<div className='rounded-lg  relative h-full '>
-				<img src={`https://image.tmdb.org/t/p/w300${poster}`} alt={title} className='rounded-lg h-full w-full object-fill cursor-pointer' />
+				<img src={`https://image.tmdb.org/t/p/w300${poster}`} alt={title} className='rounded-lg bg-gray-300  h-full w-full object-fill cursor-pointer' />
 
 				<div className='w-10 font-bold absolute z-40  bottom-[-18px] left-[10px]'>
 					<CircularProgressbar
@@ -32,7 +32,7 @@ const HomeShowcase = ({ media }: HomeShowcasePropsType) => {
 					/>
 				</div>
 			</div>
-			<div className='mx-3 my-3 mt-7'>
+			<div className='sm:mx-3 my-3 mt-7'>
 				<p className=' font-bold'>{title}</p>
 				<p className=' text-gray-500'>{releaseDate}</p>
 			</div>
