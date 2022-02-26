@@ -24,8 +24,8 @@ const Search = () => {
 				<BiSearch className='text-lg ' />
 				<input type='text' placeholder='matrix' className='w-full outline-none italic' />
 			</div> */}
-			<div className='flex flex-col	sm:flex-row  sm:justify-between sm:mx-10 sm:my-5 sm:space-x-5'>
-				<div className=' hidden sm:block w-1/4 shadow-md rounded-lg self-start'>
+			<div className='flex flex-col	md:flex-row max-w-6xl xl:mx-auto  md:justify-between md:mx-5 md:my-5 md:space-x-5'>
+				<div className=' hidden md:block w-1/4 max-w-[360px] shadow-md rounded-lg self-start'>
 					<h1 className='bg-blue-400 text-left h-16 p-5 font-bold  text-lg text-white rounded-t-lg'>Search Results</h1>
 					<ul className=' pt-3 spa'>
 						<li className={`flex justify-between px-5 py-3 ${isMovie && "bg-gray-100 "} cursor-pointer `} onClick={() => setIsMovie(true)}>
@@ -36,19 +36,19 @@ const Search = () => {
 						</li>
 					</ul>
 				</div>
-				<div className='sm:hidden'>
-					<div className='m-5 sm:m-10 flex items-center'>
-						<div className='flex items-center mx-5 border-2 border-primary rounded-3xl  justify-between'>
-							<div className={`py-1 px-3 ${isMovie ? "rounded-3xl bg-primary text-white " : "rounded-tl-3xl rounded-bl-3xl bg-white text-gray-800"} cursor-pointer `} onClick={() => setIsMovie(true)}>
+				<div className='md:hidden'>
+					<div className='mb-10 md:m-10 flex items-center'>
+						<div className='flex items-center mx-5 border-2 border-primary rounded  justify-between'>
+							<div className={`py-1 px-3 ${isMovie ? "bg-primary text-white " : "  bg-white text-gray-800"} cursor-pointer `} onClick={() => setIsMovie(true)}>
 								<p>Movies</p>
 							</div>
-							<div className={`py-1 px-4 ${!isMovie ? "rounded-3xl bg-primary text-white " : "rounded-tr-3xl rounded-br-3xl bg-white text-gray-800"}   cursor-pointer `} onClick={() => setIsMovie(false)}>
+							<div className={`py-1 px-4 ${!isMovie ? "bg-primary text-white " : "  bg-white text-gray-800"}   cursor-pointer `} onClick={() => setIsMovie(false)}>
 								<p>TV</p>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div className=' sm:w-9/12 w-full'>
+				<div className=' md:w-9/12 w-full grid  sm:grid-cols-2 md:grid-cols-1 justify-items-center md:justify-items-stretch '>
 					{isMovie &&
 						movies.length > 0 &&
 						movies.map((movie) => {

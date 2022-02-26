@@ -19,23 +19,23 @@ const SearchComp = ({ media, isMovie }: searchCompType) => {
 	}
 	const sendID = () => {};
 	return (
-		<section className='mb-5 mx-5 sm:mx-0'>
-			<div className='rounded-lg  flex flex-col sm:flex-row border-2 relative'>
+		<section className='mb-5 mx-5 w-[250px] md:w-auto  md:mx-0'>
+			<div className='rounded-lg  flex flex-col md:flex-row border-2 relative'>
 				<div className='relative'>
-					<img src={posterImg} alt='matrix' width='133' height='200' className=' w-full sm:hidden rounded-t-lg object-fill  cursor-pointer' onClick={sendID} />
+					<img src={posterImg} alt={title} width='133' height='200' className=' w-full md:hidden rounded-t-lg object-fill  cursor-pointer' onClick={sendID} />
 				</div>
-				<img src={posterImg} alt='matrix' width='94' height='144' className='hidden sm:block rounded-tl-lg rounded-bl-lg object-fill cursor-pointer' onClick={sendID} />
+				<img src={posterImg} alt={title} width='94' height='144' className='hidden md:block rounded-tl-lg rounded-bl-lg object-fill cursor-pointer' onClick={sendID} />
 				<div className='p-5 w-full flex flex-col justify-between'>
-					<div className='flex justify-start items-start sm:space-x-3 '>
+					<div className='flex justify-start items-start md:space-x-3 '>
 						<div className=''>
-							<p className=' font-bold mt-4 sm:mt-0  cursor-pointer' onClick={sendID}>
+							<p className=' font-bold mt-4 md:mt-0  cursor-pointer' onClick={sendID}>
 								{title}
 							</p>
 							<p className=' text-gray-500'>{date}</p>
 						</div>
 					</div>
-					<div className='hidden sm:block'>
-						<p className=' h-11 overflow-hidden'>{overview}</p>
+					<div className='hidden md:block'>
+						<p className=' line-clamp-2'>{overview}</p>
 					</div>
 				</div>
 			</div>
