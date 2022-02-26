@@ -10,6 +10,7 @@ import { moviesTypes, tvShowsTypes } from "../../hooks/useSearchMedia";
 export type stateProps = {
 	movies: moviesTypes[];
 	tv: tvShowsTypes[];
+	searchText: string;
 };
 
 type NavigateFunction = {
@@ -29,7 +30,7 @@ const HomeHero = () => {
 	};
 	useEffect(() => {
 		if (isSuccess) {
-			navigate("/search", { state: { movies: data.moviesResults.movies, tv: data.tvShowsResult.tvShows } });
+			navigate("/search", { state: { movies: data.moviesResults.movies, tv: data.tvShowsResult.tvShows, searchText } });
 		}
 	}, [isSuccess, navigate]);
 	return (

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiSearch } from "react-icons/bi";
+import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, Path } from "react-router-dom";
 
@@ -7,31 +8,44 @@ import { useLocation, useNavigate, Path } from "react-router-dom";
 import { stateProps } from "../components/home/HomeHero";
 
 import SearchComp from "../components/search/SearchComp";
+import useSearchMedia from "../hooks/useSearchMedia";
 // import "./Search.css";
 const Search = () => {
+	const [onPageSearch, setOnPageSearch] = useState("");
 	const navigateTo = useNavigate();
 	const location = useLocation();
-	const { movies, tv } = location.state as stateProps;
+	let { movies, tv, searchText } = location.state as stateProps;
+	const { isSuccess, data } = useSearchMedia(onPageSearch);
+	if (isSuccess && onPageSearch) {
+		movies = data.moviesResults.movies;
+		tv = data.tvShowsResult.tvShows;
+		searchText = onPageSearch;
+	}
 	const [isMovie, setIsMovie] = useState(true);
 	useEffect(() => {
 		if (!movies || !tv) {
 			navigateTo("/");
 		}
 	}, [movies, tv, navigateTo]);
+	const searchRef = useRef<HTMLInputElement>(null);
+	const submitHandler = (e: React.FormEvent) => {
+		e.preventDefault();
+		setOnPageSearch(searchRef.current!.value);
+	};
 	return (
 		<section className='mt-20 w-full'>
-			{/* <div className='flex items-center border-2 py-3 px-10 space-x-2'>
+			<form onSubmit={submitHandler} className='flex items-center border-2 py-3 px-10 space-x-2 max-w-6xl mx-5 md:mx-10 xl:mx-auto'>
 				<BiSearch className='text-lg ' />
-				<input type='text' placeholder='matrix' className='w-full outline-none italic' />
-			</div> */}
+				<input type='text' placeholder={searchText} ref={searchRef} required className='w-full outline-none italic' />
+			</form>
 			<div className='flex flex-col	md:flex-row max-w-6xl xl:mx-auto  md:justify-between md:mx-5 md:my-5 md:space-x-5'>
 				<div className=' hidden md:block w-1/4 max-w-[360px] shadow-md rounded-lg self-start'>
 					<h1 className='bg-blue-400 text-left h-16 p-5 font-bold  text-lg text-white rounded-t-lg'>Search Results</h1>
-					<ul className=' pt-3 spa'>
-						<li className={`flex justify-between px-5 py-3 ${isMovie && "bg-gray-100 "} cursor-pointer `} onClick={() => setIsMovie(true)}>
+					<ul>
+						<li className={`flex justify-between px-5 py-3 ${isMovie && "bg-gray-200 "} cursor-pointer `} onClick={() => setIsMovie(true)}>
 							Movies <span className=' bg-white p-1 rounded-lg'>{!!movies && movies.length}</span>
 						</li>
-						<li className={`flex justify-between px-5 py-3 ${!isMovie && "bg-gray-100"} cursor-pointer rounded-b-lg`} onClick={() => setIsMovie(false)}>
+						<li className={`flex justify-between px-5 py-3 ${!isMovie && "bg-gray-200"} cursor-pointer rounded-b-lg`} onClick={() => setIsMovie(false)}>
 							Tv Shows <span className=' bg-white p-1 rounded-lg'>{!!tv && tv.length}</span>
 						</li>
 					</ul>
