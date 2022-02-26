@@ -102,11 +102,11 @@ const Home = () => {
 			<HomeHero />
 			<div className='m-5 sm:m-10 flex items-center max-w-5xl lg:mx-auto'>
 				<p className='text-2xl font-semibold'>Popular</p>
-				<div className='flex items-center mx-5 border-2 border-primary rounded-3xl  justify-between'>
-					<div className={`py-1 px-3 ${isMovie ? "rounded-3xl bg-primary text-white " : "rounded-tl-3xl rounded-bl-3xl bg-white text-gray-800"} cursor-pointer `} onClick={switchToMovies}>
+				<div className='flex items-center mx-5 border-2 border-primary rounded justify-between'>
+					<div className={`py-1 px-3 ${isMovie ? " bg-primary text-white " : "bg-white text-gray-800"} cursor-pointer  transition-all duration-300 `} onClick={switchToMovies}>
 						<p>Movies</p>
 					</div>
-					<div className={`py-1 px-4 ${!isMovie ? "rounded-3xl bg-primary text-white " : "rounded-tr-3xl rounded-br-3xl bg-white text-gray-800"}   cursor-pointer `} onClick={switchToTv}>
+					<div className={`py-1 px-4 ${!isMovie ? " bg-primary text-white " : "bg-white text-gray-800"}   cursor-pointer  transition-all duration-300 `} onClick={switchToTv}>
 						<p>TV</p>
 					</div>
 				</div>

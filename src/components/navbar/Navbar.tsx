@@ -1,15 +1,21 @@
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
+// Redux
 import { useAppSelector, useAppDispatch } from "../../hooks/typedReduxHooks";
 import { logOut, getUserWithSessionId } from "../../app/features/authSlice";
 import { setProgressBar } from "../../app/features/uiSlice";
 
 // Components
 import ProgressLine from "../loader/ProgressLine";
+
+// CSS
+import "./Navbar.css";
+
 const Navbar = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	const { isAuthenticated, user, sessionId, isLoading } = useAppSelector((state) => state.auth);
 	const { percentage, isLoader } = useAppSelector((state) => state.ui.progressBar);
@@ -20,12 +26,10 @@ const Navbar = () => {
 
 	// Refetch user data when browser is refreshed
 	useEffect(() => {
-		if (isAuthenticated) {
+		if (isAuthenticated && location.pathname != "/") {
 			navigate("/");
 		}
 		if (sessionId && !user) {
-			console.log("lol");
-
 			dispatch(getUserWithSessionId(sessionId));
 		}
 	}, [isAuthenticated, navigate, sessionId, dispatch, user]);
@@ -60,7 +64,6 @@ const Navbar = () => {
 			</section>
 			{isLoader && (
 				<ProgressLine
-					// label='Full progressbar'
 					visualParts={[
 						{
 							percentage: `${percentage}%`,

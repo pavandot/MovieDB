@@ -1,0 +1,8 @@
+.text-style {
+	background: #87cca5;
+	background: -webkit-linear-gradient(to right, #87cca5 0%, #19b7da 50%, #02b3e4 100%);
+	background: -moz-linear-gradient(to right, #87cca5 0%, #19b7da 50%, #02b3e4 100%);
+	background: linear-gradient(to right, #87cca5 0%, #19b7da 50%, #02b3e4 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
