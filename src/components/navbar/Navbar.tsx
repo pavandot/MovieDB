@@ -26,9 +26,6 @@ const Navbar = () => {
 
 	// Refetch user data when browser is refreshed
 	useEffect(() => {
-		if (isAuthenticated && location.pathname != "/") {
-			navigate("/");
-		}
 		if (sessionId && !user) {
 			dispatch(getUserWithSessionId(sessionId));
 		}
