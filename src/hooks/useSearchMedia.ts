@@ -2,14 +2,14 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 // Types
-type moviesTypes = {
+export type moviesTypes = {
 	id: number;
 	title: string;
 	posterImg: string;
 	overview: string;
 	date: string;
 };
-type tvShowsTypes = {
+export type tvShowsTypes = {
 	id: number;
 	title: string;
 	posterImg: string;
@@ -59,7 +59,7 @@ const useSearchMedia = (searchText: string) => {
 			const tvResult = res.data.results;
 			return { tvTotalPages, tvTotalResult, tvResult };
 		});
-		let tvShowsArr: tvShowsTypes[] = [];
+		let tvShows: tvShowsTypes[] = [];
 		tvResult.forEach((tv: any) => {
 			const id = tv.id;
 			const title = tv.name;
@@ -77,10 +77,10 @@ const useSearchMedia = (searchText: string) => {
 			}
 			const date = `${month_names_short[parseInt(dateSplit[1]) - 1]} ${dateSplit[2]}, ${dateSplit[0]}`;
 			if (!!date && !!overview) {
-				tvShowsArr.push({ id, title, posterImg, overview, date });
+				tvShows.push({ id, title, posterImg, overview, date });
 			}
 		});
-		const tvShowsResult = { tvShowsArr, tvTotalPages, tvTotalResult };
+		const tvShowsResult = { tvShows, tvTotalPages, tvTotalResult };
 		return { moviesResults, tvShowsResult };
 	};
 	return useQuery(["search", searchText], () => getSearchMedia(searchText), {
