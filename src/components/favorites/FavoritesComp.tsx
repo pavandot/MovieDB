@@ -1,58 +1,46 @@
 import { IoHeartCircle, IoCloseCircleOutline } from "react-icons/io5";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { useNavigate } from "react-router-dom";
 
-// Types
 import { useFavoritesReturn } from "../../hooks/useFavorites";
+import useDeleteFavorites from "../../hooks/useDeleteFavorites";
+import { useAppSelector } from "../../hooks/typedReduxHooks";
+// Types
 type favoritesCompType = {
 	media: useFavoritesReturn;
 	isMovie: boolean;
 };
+
 const FavoritesComp = ({ media, isMovie }: favoritesCompType) => {
 	const { id, title, posterImg, rating, date, overview } = media;
-	// const dispatch = useDispatch();
-	// const history = useNavigate();
-	// const removeFavorite = () => {
-	// 	if (isMovie) {
-	// 		const alteredData = movies.filter((movie) => movie.id !== id);
-	// 		dispatch(getFavoriteMovies(alteredData));
-	// 		const body = {
-	// 			media_type: "movie",
-	// 			media_id: id,
-	// 			favorite: false,
-	// 		};
-	// 		dispatch(toggleFavorites(body, sessionId));
-	// 	} else {
-	// 		const alteredData = tv.filter((tvItem) => tvItem.id !== id);
-	// 		dispatch(getFavoriteTv(alteredData));
-	// 		dispatch(
-	// 			toggleFavorites(
-	// 				{
-	// 					media_type: "tv",
-	// 					media_id: id,
-	// 					favorite: false,
-	// 				},
-	// 				sessionId
-	// 			)
-	// 		);
-	// 	}
-	// };
-	// const sendID = () => {
-	// 	if (isMovie) {
-	// 		dispatch(getMovieById(id, history, "movie", sessionId));
-	// 	}
-	// 	if (!isMovie) {
-	// 		dispatch(getMovieById(id, history, "tv", sessionId));
-	// 	}
-	// };
+	const sessionId = useAppSelector((state) => state.auth.sessionId);
+	const { mutate } = useDeleteFavorites();
+
+	const removeFavorite = () => {
+		if (isMovie) {
+			const body = {
+				media_type: "movie",
+				media_id: id,
+				favorite: false,
+			};
+			mutate({ body, sessionId });
+		} else {
+			const body = {
+				media_type: "tv",
+				media_id: id,
+				favorite: false,
+			};
+			mutate({ body, sessionId });
+		}
+	};
+
 	return (
 		<motion.section key={id} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 			<div className='rounded-lg  h-full flex flex-col sm:flex-row border-2 relative max-w-7xl mx-auto'>
 				<div className='relative'>
 					<img src={posterImg} alt={title} width='133' height='200' className=' w-full sm:hidden rounded-t-lg object-fill cursor-pointer ' />
-					<div className='w-10 font-bold absolute rating-position sm:hidden '>
+					<div className='w-10 font-bold absolute z-40  bottom-[-18px] left-[10px] sm:hidden '>
 						<CircularProgressbar
 							value={rating}
 							text={`${rating}%`}
@@ -99,7 +87,7 @@ const FavoritesComp = ({ media, isMovie }: favoritesCompType) => {
 							<IoHeartCircle className='text-3xl text-red-500' />
 							<span>Favorite</span>
 						</div>
-						<div className='flex items-center cursor-pointer hover:text-[#959595] '>
+						<div className='flex items-center cursor-pointer hover:text-[#959595] ' onClick={removeFavorite}>
 							<IoCloseCircleOutline className='text-3xl ' />
 							<span>Remove</span>
 						</div>

@@ -2,13 +2,13 @@ import { useState } from "react";
 import FavoritesComp from "../components/favorites/FavoritesComp";
 import useFavorites from "../hooks/useFavorites";
 import Spinner from "../components/ui/Spinner";
+import useDeleteFavorites from "../hooks/useDeleteFavorites";
+import { useAppSelector } from "../hooks/typedReduxHooks";
 
-import { useFavoritesReturn } from "../hooks/useFavorites";
 const Favorites = () => {
 	const { data: movies } = useFavorites("movies");
+	const sessionId = useAppSelector((state) => state.auth.sessionId);
 	const { data: tv } = useFavorites("tv");
-	console.log(movies, tv);
-
 	const [isMovie, setIsMovie] = useState(true);
 	const switchToMovies = () => {
 		setIsMovie(true);
@@ -16,6 +16,7 @@ const Favorites = () => {
 	const switchToTv = () => {
 		setIsMovie(false);
 	};
+
 	return (
 		<div className=' min-h-screen'>
 			<p className='m-10'>1</p>
