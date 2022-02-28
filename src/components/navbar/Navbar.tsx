@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { FiLogOut, FiLogIn } from "react-icons/fi";
 // Redux
 import { useAppSelector, useAppDispatch } from "../../hooks/typedReduxHooks";
 import { logOut, getUserWithSessionId } from "../../app/features/authSlice";
@@ -61,12 +62,23 @@ const Navbar = () => {
 				</div>
 				<div className='right flex sm:space-x-10 items-center text-lg '>
 					{isAuthenticated ? (
-						<div onClick={handelLogout} className='cursor-pointer'>
-							<h1 className='pointer font-semibold'>Logout</h1>
-						</div>
+						<>
+							<Link to='/favorites' className='hidden sm:block'>
+								<h1 className='pointer font-semibold'>Favorites</h1>
+							</Link>
+							<div onClick={handelLogout} className='cursor-pointer'>
+								<div className='pointer font-semibold flex justify-center items-center space-x-1'>
+									<span>Logout</span>
+									<FiLogOut />{" "}
+								</div>
+							</div>
+						</>
 					) : (
 						<Link to='/login'>
-							<h1 className='pointer font-semibold'>Login</h1>
+							<div className='pointer font-semibold flex justify-center items-center space-x-1'>
+								<span>Login</span>
+								<FiLogIn />
+							</div>
 						</Link>
 					)}
 				</div>
