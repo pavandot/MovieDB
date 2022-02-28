@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
 // Redux
 import { useAppSelector, useAppDispatch } from "../../hooks/typedReduxHooks";
 import { logOut, getUserWithSessionId } from "../../app/features/authSlice";
@@ -10,6 +10,7 @@ import { setProgressBar } from "../../app/features/uiSlice";
 import ProgressLine from "../ui/loader/ProgressLine";
 
 // CSS
+import "react-toastify/dist/ReactToastify.css";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -17,19 +18,30 @@ const Navbar = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const { isAuthenticated, user, sessionId, isLoading } = useAppSelector((state) => state.auth);
+	const { isAuthenticated, user, sessionId, isLoading, error } = useAppSelector((state) => state.auth);
+
 	const { percentage, isLoader } = useAppSelector((state) => state.ui.progressBar);
 
 	const handelLogout = () => {
 		dispatch(logOut());
 	};
 
-	// Refetch user data when browser is refreshed
 	useEffect(() => {
+		// If user is authenticated redirect to home page
+		if (location.pathname === "/login" && isAuthenticated) {
+			navigate("/");
+		}
+		// Refetch user data when browser is refreshed
 		if (sessionId && !user) {
 			dispatch(getUserWithSessionId(sessionId));
 		}
 	}, [isAuthenticated, navigate, sessionId, dispatch, user]);
+
+	useEffect(() => {
+		if (error) {
+			toast.error(error);
+		}
+	}, [error]);
 
 	// Update progress bar when user is logged in
 	if (isLoading) {
@@ -69,6 +81,7 @@ const Navbar = () => {
 					]}
 				/>
 			)}
+			{error && <ToastContainer position='top-right' autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />}
 		</div>
 	);
 };

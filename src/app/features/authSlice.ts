@@ -83,10 +83,14 @@ export const authSlice = createSlice({
 				state.isLoading = false;
 			})
 			.addCase(getUser.rejected, (state, action: any) => {
+				let errorMessage = "";
+				if (action.error.message.includes("401")) {
+					errorMessage = "Invalid Credentials";
+				}
 				state.isAuthenticated = false;
 				state.user = null;
 				state.sessionId = null;
-				state.error = action.payload.message;
+				state.error = errorMessage;
 				state.isLoading = false;
 			});
 
