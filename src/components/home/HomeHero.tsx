@@ -30,7 +30,7 @@ const HomeHero = () => {
 	};
 	useEffect(() => {
 		if (isSuccess) {
-			navigate("/search", { state: { movies: data.moviesResults.movies, tv: data.tvShowsResult.tvShows, searchText } });
+			navigate("/search/" + searchText.replace(" ", "-"));
 		}
 	}, [isSuccess, navigate]);
 	return (
