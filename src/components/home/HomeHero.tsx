@@ -1,8 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useNavigate, To } from "react-router-dom";
-
-// Hooks
-import useSearchMedia from "../../hooks/useSearchMedia";
 
 // Types
 import { moviesTypes, tvShowsTypes } from "../../hooks/useSearchMedia";
@@ -20,19 +17,12 @@ type NavigateFunction = {
 
 // React Component
 const HomeHero = () => {
-	const [searchText, setSearchText] = useState("");
-	const { isLoading, isError, error, isSuccess, data } = useSearchMedia(searchText);
 	const navigate: NavigateFunction = useNavigate();
 	const searchRef = useRef<HTMLInputElement>(null);
 	const submitHandler = (e: React.FormEvent) => {
 		e.preventDefault();
-		setSearchText(searchRef.current!.value);
+		navigate("/search/" + searchRef.current!.value.replace(" ", "-"));
 	};
-	useEffect(() => {
-		if (isSuccess) {
-			navigate("/search/" + searchText.replace(" ", "-"));
-		}
-	}, [isSuccess, navigate]);
 	return (
 		<section className=' h-80 relative overflow-hidden mt-16 ' id='media-top'>
 			<img src='https://www.themoviedb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,032541,01b4e4)/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg' alt='img' className='w-full h-full  md:bg-cover ' />

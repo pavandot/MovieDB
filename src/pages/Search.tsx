@@ -12,6 +12,7 @@ import useSearchMedia from "../hooks/useSearchMedia";
 
 // Components
 import SearchComp from "../components/search/SearchComp";
+import Spinner from "../components/ui/Spinner";
 
 const Search = () => {
 	const navigateTo = useNavigate();
@@ -90,7 +91,7 @@ const Search = () => {
 					</div>
 				</section>
 			) : (
-				<div>Loading</div>
+				<Spinner />
 			)}
 		</>
 	);

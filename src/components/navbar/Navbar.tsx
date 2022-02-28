@@ -7,7 +7,7 @@ import { logOut, getUserWithSessionId } from "../../app/features/authSlice";
 import { setProgressBar } from "../../app/features/uiSlice";
 
 // Components
-import ProgressLine from "../loader/ProgressLine";
+import ProgressLine from "../ui/loader/ProgressLine";
 
 // CSS
 import "./Navbar.css";
