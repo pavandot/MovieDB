@@ -2,13 +2,11 @@ import { useState } from "react";
 import FavoritesComp from "../components/favorites/FavoritesComp";
 import useFavorites from "../hooks/useFavorites";
 import Spinner from "../components/ui/Spinner";
-import useDeleteFavorites from "../hooks/useDeleteFavorites";
-import { useAppSelector } from "../hooks/typedReduxHooks";
 
 const Favorites = () => {
 	const { data: movies } = useFavorites("movies");
-	const sessionId = useAppSelector((state) => state.auth.sessionId);
 	const { data: tv } = useFavorites("tv");
+
 	const [isMovie, setIsMovie] = useState(true);
 	const switchToMovies = () => {
 		setIsMovie(true);
