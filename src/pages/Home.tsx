@@ -117,7 +117,7 @@ const Home = () => {
 					movies.map((movie) => {
 						return (
 							<div key={movie.id} className='m-3'>
-								<HomeShowcase media={movie} />
+								<HomeShowcase media={movie} isMovie={isMovie} />
 							</div>
 						);
 					})}
@@ -126,7 +126,7 @@ const Home = () => {
 					tv.map((tv) => {
 						return (
 							<div key={tv.id} className='m-3'>
-								<HomeShowcase media={tv} />
+								<HomeShowcase media={tv} isMovie={isMovie} />
 							</div>
 						);
 					})}
