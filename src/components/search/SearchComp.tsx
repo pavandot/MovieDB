@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 // Types
@@ -12,6 +13,7 @@ type searchCompType = {
 
 const SearchComp = ({ media, isMovie }: searchCompType) => {
 	const navigate = useNavigate();
+	const mediaType = isMovie ? "movie" : "tv";
 	const { id, title, posterImg, overview, date } = media;
 	let shortOverview = "";
 	if (overview.length > 229) {
@@ -22,9 +24,13 @@ const SearchComp = ({ media, isMovie }: searchCompType) => {
 		<section className='mb-5 mx-5 w-[250px] md:w-auto  md:mx-0'>
 			<div className='rounded-lg  flex flex-col md:flex-row border-2 relative'>
 				<div className='relative'>
-					<img src={posterImg} alt={title} width='133' height='200' className=' w-full md:hidden rounded-t-lg object-fill  cursor-pointer' onClick={sendID} />
+					<Link to={`/${mediaType}/${id}`}>
+						<img src={posterImg} alt={title} width='133' height='200' className=' w-full md:hidden rounded-t-lg object-fill  cursor-pointer' onClick={sendID} />
+					</Link>
 				</div>
-				<img src={posterImg} alt={title} width='94' height='144' className='hidden md:block rounded-tl-lg rounded-bl-lg object-fill cursor-pointer' onClick={sendID} />
+				<Link to={`/${mediaType}/${id}`}>
+					<img src={posterImg} alt={title} width='94' height='144' className='hidden md:block rounded-tl-lg rounded-bl-lg object-fill cursor-pointer' onClick={sendID} />
+				</Link>
 				<div className='p-5 w-full flex flex-col justify-between'>
 					<div className='flex justify-start items-start md:space-x-3 '>
 						<div className=''>

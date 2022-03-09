@@ -1,4 +1,5 @@
 import { IoHeartCircle, IoCloseCircleOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -16,6 +17,7 @@ const FavoritesComp = ({ media, isMovie }: favoritesCompType) => {
 	const { id, title, posterImg, rating, date, overview } = media;
 	const sessionId = useAppSelector((state) => state.auth.sessionId);
 	const { mutate } = useDeleteFavorites();
+	const mediaType = isMovie ? "movie" : "tv";
 
 	const removeFavorite = () => {
 		if (isMovie) {
@@ -39,7 +41,9 @@ const FavoritesComp = ({ media, isMovie }: favoritesCompType) => {
 		<motion.section key={id} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 			<div className='rounded-lg  h-full flex flex-col sm:flex-row border-2 relative max-w-7xl mx-auto'>
 				<div className='relative'>
-					<img src={posterImg} alt={title} width='133' height='200' className=' w-full sm:hidden rounded-t-lg object-fill cursor-pointer ' />
+					<Link to={`/${mediaType}/${id}`}>
+						<img src={posterImg} alt={title} width='133' height='200' className=' w-full sm:hidden rounded-t-lg object-fill cursor-pointer ' />
+					</Link>
 					<div className='w-10 font-bold absolute z-40  bottom-[-18px] left-[10px] sm:hidden '>
 						<CircularProgressbar
 							value={rating}
@@ -56,7 +60,9 @@ const FavoritesComp = ({ media, isMovie }: favoritesCompType) => {
 						/>
 					</div>
 				</div>
-				<img src={posterImg} alt={title} width='133' height='200' className='hidden sm:block rounded-tl-lg rounded-bl-lg object-fill cursor-pointer' />
+				<Link to={`/${mediaType}/${id}`}>
+					<img src={posterImg} alt={title} width='133' height='200' className='hidden sm:block rounded-tl-lg rounded-bl-lg object-fill cursor-pointer' />
+				</Link>
 				<div className='p-5 w-full flex flex-col justify-between'>
 					<div className='flex justify-start items-start sm:space-x-3 '>
 						<div className='w-10 font-bold hidden sm:block '>
