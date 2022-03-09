@@ -61,6 +61,19 @@ const HomeShowcase = ({ media, isMovie }: HomeShowcasePropsType) => {
 					</div>
 				)}
 				<AnimatePresence>
+					{isMovieMenu && isLoading && (
+						<>
+							<motion.div
+								className='absolute movie-menu top-[40px] right-[0px] bg-white w-[130px] h-[68px] flex flex-col justify-around items-center  rounded border-2'
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								transition={{ duration: 0.25 }}>
+								<div className='w-[95%]  bg-gray-300 h-[40%] rounded animate-pulse'></div>
+								<div className='w-[95%]  bg-gray-300 h-[40%] rounded  animate-pulse'></div>
+							</motion.div>
+						</>
+					)}
 					{isMovieMenu && !isLoading && (
 						<motion.div className='absolute movie-menu top-[40px] right-[0px] bg-white rounded border-2' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
 							<div className='px-3 py-1 hover:bg-gray-200 '>
