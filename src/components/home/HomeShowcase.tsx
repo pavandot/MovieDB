@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/typedReduxHooks";
 import { fetchMediaDetails, clearIsFavorite, toggleFavorites, toggleWatchList } from "../../app/features/mediaDetailsSlice";
 // Types
 import { mediaType } from "../../pages/Home";
+import { Link } from "react-router-dom";
 
 type HomeShowcasePropsType = {
 	media: mediaType;
@@ -22,7 +23,7 @@ const HomeShowcase = ({ media, isMovie }: HomeShowcasePropsType) => {
 	const dispatch = useAppDispatch();
 	const sessionId = useAppSelector((state) => state.auth.sessionId);
 	const { isFavorite, isLoading, isWatchlist } = useAppSelector((state) => state.mediaDetails);
-	const { title, poster, rating, releaseDate } = media;
+	const { title, poster, rating, releaseDate, id } = media;
 	const favoriteHandler = () => {
 		const body = {
 			media_type: mediaType,
@@ -54,7 +55,9 @@ const HomeShowcase = ({ media, isMovie }: HomeShowcasePropsType) => {
 	return (
 		<motion.section className='inline-block h-72  w-[160px]  sm:w-[170px] md:w-[180px] ' initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
 			<div className='rounded-lg  relative h-full '>
-				<img src={`https://image.tmdb.org/t/p/w300${poster}`} alt={title} className='rounded-lg bg-gray-300  h-full w-full object-fill cursor-pointer' />
+				<Link to={`${mediaType}/${id}`}>
+					<img src={`https://image.tmdb.org/t/p/w300${poster}`} alt={title} className='rounded-lg bg-gray-300  h-full w-full object-fill cursor-pointer' />
+				</Link>
 				{!!sessionId && (
 					<div className='absolute top-3 right-3 cursor-pointer hover:bg-secondary transition duration-300 p-1 bg-gray-300 rounded-full ' onClick={getMediaDetails}>
 						<BsThreeDots />
