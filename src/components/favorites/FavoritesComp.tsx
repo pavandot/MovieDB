@@ -85,8 +85,8 @@ const FavoritesComp = ({ media, isMovie }: favoritesCompType) => {
 							<p className=' text-gray-500'>{date}</p>
 						</div>
 					</div>
-					<div className='hidden sm:block'>
-						<p>{overview}</p>
+					<div className='hidden sm:block '>
+						<p className=' line-clamp-3'>{overview}</p>
 					</div>
 					<div className=' flex justify-around mt-5 sm:justify-start sm:mt-0 space-x-4 '>
 						<div className='flex items-center cursor-pointer'>

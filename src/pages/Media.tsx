@@ -80,6 +80,7 @@ const fetchMedia = async (id: any, mediaType: any, sessionId: any) => {
 const Media = () => {
 	const navigateTo = useNavigate();
 	const { mutate } = useToggleMedia();
+
 	const { mediaId, mediaType } = useParams();
 	const sessionId = useAppSelector((state) => state.auth.sessionId);
 	const {

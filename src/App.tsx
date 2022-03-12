@@ -11,7 +11,7 @@ import Navbar from "./components/navbar/Navbar";
 
 function App() {
 	return (
-		<section>
+		<section className=' font-Poppins'>
 			<Navbar />
 			<div>
 				<Routes>
