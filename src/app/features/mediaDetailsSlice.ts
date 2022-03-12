@@ -22,7 +22,7 @@ export const toggleFavorites = createAsyncThunk("auth/toggleFavorites", async (b
 
 export const toggleWatchList = createAsyncThunk("auth/toggleWatchList", async (body: { media_type: string; media_id: number; watchlist: boolean }) => {
 	const sessionId = localStorage.getItem("sessionId");
-	const url = `https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}&session_id=${sessionId}`;
+	const url = `https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}&session_id=${sessionId}`;
 	return axios.post(url, body).then((response) => {
 		console.log(response.data);
 

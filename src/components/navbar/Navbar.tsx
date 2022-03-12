@@ -63,6 +63,9 @@ const Navbar = () => {
 				<div className='right flex sm:space-x-10 items-center text-lg '>
 					{isAuthenticated ? (
 						<>
+							<Link to='/watchlist' className='hidden sm:block'>
+								<h1 className='pointer font-semibold'>WatchList</h1>
+							</Link>
 							<Link to='/favorites' className='hidden sm:block'>
 								<h1 className='pointer font-semibold'>Favorites</h1>
 							</Link>

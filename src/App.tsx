@@ -5,7 +5,9 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
 import Favorites from "./pages/Favorites";
+import WatchList from "./pages/WatchList";
 import Media from "./pages/Media";
+
 // Components
 import Navbar from "./components/navbar/Navbar";
 
@@ -20,6 +22,7 @@ function App() {
 					<Route path='/search/:id' element={<Search />} />
 					<Route path='/:mediaType/:mediaId' element={<Media />} />
 					<Route path='/favorites' element={<Favorites />} />
+					<Route path='/watchlist' element={<WatchList />} />
 				</Routes>
 			</div>
 		</section>
