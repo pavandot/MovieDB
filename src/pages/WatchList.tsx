@@ -31,7 +31,7 @@ const WatchList = () => {
 			</div>
 			{movies && tv ? (
 				<div className='grid grid-cols-1 m-10'>
-					{isMovie && movies.length === 0 && <h1 className='text-3xl text-center font-semibold'>No Favorites</h1>}
+					{isMovie && movies.length === 0 && <h1 className='text-3xl text-center font-semibold'>No WatchList</h1>}
 					{isMovie &&
 						movies.map((movie) => {
 							return (
@@ -40,7 +40,7 @@ const WatchList = () => {
 								</div>
 							);
 						})}
-					{!isMovie && tv.length === 0 && <h1 className='text-3xl text-center font-semibold'>No Favorites</h1>}
+					{!isMovie && tv.length === 0 && <h1 className='text-3xl text-center font-semibold'>No WatchList</h1>}
 					{!isMovie &&
 						tv.map((tvItem) => {
 							return (
