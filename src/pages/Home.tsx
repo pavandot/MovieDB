@@ -84,6 +84,7 @@ const Home = () => {
 	// 	console.log(movies);
 	// 	console.log(tv);
 	// }
+	// lol
 
 	const switchToMovies = () => {
 		setPageNumber(1);
