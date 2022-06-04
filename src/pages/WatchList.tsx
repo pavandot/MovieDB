@@ -1,11 +1,11 @@
-import { useState } from "react";
-import useWatchList from "../hooks/useWatchList";
-import WatchListComp from "../components/watchlist/WatchListComp";
-import Spinner from "../components/ui/Spinner";
+import { useState } from 'react';
+import useWatchList from '../hooks/useWatchList';
+import WatchListComp from '../components/watchlist/WatchListComp';
+import Spinner from '../components/ui/Spinner';
 
 const WatchList = () => {
-	const { data: movies } = useWatchList("movies");
-	const { data: tv } = useWatchList("tv");
+	const { data: movies } = useWatchList('movies');
+	const { data: tv } = useWatchList('tv');
 
 	const [isMovie, setIsMovie] = useState(true);
 	const switchToMovies = () => {
@@ -19,12 +19,22 @@ const WatchList = () => {
 		<div className=' min-h-screen'>
 			<p className='m-10'>1</p>
 			<div className=' m-10  flex items-center max-w-7xl  xl:mx-auto mx-5 md:mx-10'>
-				<p className=' text-xl md:text-2xl font-semibold'>My Favorites</p>
+				<p className=' text-xl md:text-2xl font-semibold'>My WatchList</p>
 				<div className='flex items-center mx-5 border-2 border-primary  rounded justify-between'>
-					<div className={`py-1 px-3 ${isMovie ? " bg-primary text-white " : " bg-white text-gray-800"} transition-all duration-300 cursor-pointer `} onClick={switchToMovies}>
+					<div
+						className={`py-1 px-3 ${
+							isMovie ? ' bg-primary text-white ' : ' bg-white text-gray-800'
+						} transition-all duration-300 cursor-pointer `}
+						onClick={switchToMovies}
+					>
 						<p>Movies</p>
 					</div>
-					<div className={`py-1 px-4 ${!isMovie ? " bg-primary text-white " : " bg-white text-gray-800"} transition-all duration-300   cursor-pointer `} onClick={switchToTv}>
+					<div
+						className={`py-1 px-4 ${
+							!isMovie ? ' bg-primary text-white ' : ' bg-white text-gray-800'
+						} transition-all duration-300   cursor-pointer `}
+						onClick={switchToTv}
+					>
 						<p>TV</p>
 					</div>
 				</div>

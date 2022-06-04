@@ -1,14 +1,14 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import { useNavigate, useParams } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
-import { useQuery } from "react-query";
-import { BsBookmark, BsBookmarkCheckFill } from "react-icons/bs";
-import { useAppDispatch, useAppSelector } from "../hooks/typedReduxHooks";
+import axios from 'axios';
+import { useEffect } from 'react';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FaHeart } from 'react-icons/fa';
+import { useQuery } from 'react-query';
+import { BsBookmark, BsBookmarkCheckFill } from 'react-icons/bs';
+import { useAppDispatch, useAppSelector } from '../hooks/typedReduxHooks';
 
-import Spinner from "../components/ui/Spinner";
-import { useToggleMedia } from "../hooks/useToggleMedia";
+import Spinner from '../components/ui/Spinner';
+import { useToggleMedia } from '../hooks/useToggleMedia';
 
 // Types
 type dataType = {
@@ -28,35 +28,43 @@ type dataType = {
 };
 
 const fetchMedia = async (id: any, mediaType: any, sessionId: any) => {
-	const movieData = await axios.get(`https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}&language=en-US`).then((res) => res.data);
+	const movieData = await axios
+		.get(`https://api.themoviedb.org/3/${mediaType}/${id}?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}&language=en-US`)
+		.then((res) => res.data);
 	// console.log(movieData);
-	let title = "";
-	let releaseDate = "";
-	let totalRunTime = "";
+	let title = '';
+	let releaseDate = '';
+	let totalRunTime = '';
 	let isFavorite = false;
 	let isWatchList = false;
 	let isMovie = true;
 	if (sessionId) {
-		const isUser = await axios.get(`https://api.themoviedb.org/3/${mediaType}/${id}/account_states?api_key=${import.meta.env.VITE_REACT_APP_API_KEY}&session_id=${sessionId}`).then((res) => {
-			isFavorite = res.data.favorite;
-			isWatchList = res.data.watchlist;
-			return { isFavorite, isWatchList };
-		});
+		const isUser = await axios
+			.get(
+				`https://api.themoviedb.org/3/${mediaType}/${id}/account_states?api_key=${
+					import.meta.env.VITE_REACT_APP_API_KEY
+				}&session_id=${sessionId}`
+			)
+			.then((res) => {
+				isFavorite = res.data.favorite;
+				isWatchList = res.data.watchlist;
+				return { isFavorite, isWatchList };
+			});
 		isFavorite = isUser.isFavorite;
 		isWatchList = isUser.isWatchList;
 	}
 	// console.log(isFavorite);
-	if (mediaType === "movie") {
+	if (mediaType === 'movie') {
 		title = movieData.title;
-		releaseDate = movieData.release_date.replaceAll("-", "/");
+		releaseDate = movieData.release_date.replaceAll('-', '/');
 		const runtime = movieData.runtime;
 		const hours = Math.floor(runtime / 60);
 		const minutes = runtime % 60;
 		totalRunTime = `${hours}h ${minutes}m`;
 	}
-	if (mediaType === "tv") {
+	if (mediaType === 'tv') {
 		title = movieData.name;
-		releaseDate = movieData.first_air_date.replaceAll("-", "/");
+		releaseDate = movieData.first_air_date.replaceAll('-', '/');
 		totalRunTime = `${movieData.runtime}m`;
 		isMovie = false;
 	}
@@ -73,7 +81,21 @@ const fetchMedia = async (id: any, mediaType: any, sessionId: any) => {
 	const overview = movieData.overview;
 	const posterPath = `https://image.tmdb.org/t/p/w400/${movieData.poster_path}`;
 	const backgroundPoster = `https://image.tmdb.org/t/p/w500/${movieData.backdrop_path}`;
-	const data: dataType = { id, title, rating, releaseDate, genres, totalRunTime, tagLine, overview, backgroundPoster, posterPath, isFavorite, isWatchList, isMovie };
+	const data: dataType = {
+		id,
+		title,
+		rating,
+		releaseDate,
+		genres,
+		totalRunTime,
+		tagLine,
+		overview,
+		backgroundPoster,
+		posterPath,
+		isFavorite,
+		isWatchList,
+		isMovie,
+	};
 	return data;
 };
 
@@ -88,16 +110,30 @@ const Media = () => {
 		isLoading: isMediaLoading,
 		isSuccess: isMediaSuccess,
 		isFetching,
-	} = useQuery(["media", mediaId], () => fetchMedia(mediaId, mediaType, sessionId), {
+	} = useQuery(['media', mediaId], () => fetchMedia(mediaId, mediaType, sessionId), {
 		enabled: !!mediaId,
 	});
 	useEffect(() => {
 		if (!mediaId) {
-			navigateTo("/");
+			navigateTo('/');
 		}
 	}, [mediaId, navigateTo]);
 
-	let { id, title, rating, releaseDate, genres, totalRunTime, tagLine, overview, backgroundPoster, posterPath, isFavorite, isMovie, isWatchList } = isMediaSuccess ? (data as dataType) : ({} as dataType);
+	let {
+		id,
+		title,
+		rating,
+		releaseDate,
+		genres,
+		totalRunTime,
+		tagLine,
+		overview,
+		backgroundPoster,
+		posterPath,
+		isFavorite,
+		isMovie,
+		isWatchList,
+	} = isMediaSuccess ? (data as dataType) : ({} as dataType);
 
 	const setIsFavorites = () => {
 		const body = {
@@ -138,7 +174,8 @@ const Media = () => {
 									{title} <span className='text-gray-300'>({releaseDate.slice(0, 4)})</span>
 								</h1>
 								<p className=''>
-									<span className=' border-[2px] rounded-md px-[2px] text-gray-400 border-gray-400'>PG-13</span> &nbsp; {releaseDate} (IN) &nbsp; &#8226; &nbsp;{genres[0]}, {genres[1]} &nbsp; &#8226; &nbsp;{totalRunTime}
+									<span className=' border-[2px] rounded-md px-[2px] text-gray-400 border-gray-400'>PG-13</span> &nbsp;{' '}
+									{releaseDate} (IN) &nbsp; &#8226; &nbsp;{genres[0]}, {genres[1]} &nbsp; &#8226; &nbsp;{totalRunTime}
 								</p>
 								<div className='my-5 flex w-full items-center'>
 									<div className='w-16 font-bold rating-position'>
@@ -148,10 +185,10 @@ const Media = () => {
 											backgroundPadding={6}
 											strokeWidth={6}
 											styles={buildStyles({
-												textSize: "30px",
-												textColor: "white",
-												backgroundColor: "#081C22",
-												pathColor: "#21D07A",
+												textSize: '30px',
+												textColor: 'white',
+												backgroundColor: '#081C22',
+												pathColor: '#21D07A',
 											})}
 											background={true}
 										/>
@@ -159,10 +196,16 @@ const Media = () => {
 									<p className='font-bold ml-2'>
 										User <br /> Score
 									</p>
-									<div className={`bg-primary ml-4 p-4 rounded-3xl cursor-pointer ${sessionId ? "block" : "hidden"} `} onClick={setIsFavorites}>
-										<FaHeart className={`${isFavorite ? "text-red-600" : "text-white"}`} />
+									<div
+										className={`bg-primary ml-4 p-4 rounded-3xl cursor-pointer ${sessionId ? 'block' : 'hidden'} `}
+										onClick={setIsFavorites}
+									>
+										<FaHeart className={`${isFavorite ? 'text-red-600' : 'text-white'}`} />
 									</div>
-									<div className={`bg-primary ml-4 p-4 rounded-3xl cursor-pointer ${sessionId ? "block" : "hidden"}`} onClick={watchListHandler}>
+									<div
+										className={`bg-primary ml-4 p-4 rounded-3xl cursor-pointer ${sessionId ? 'block' : 'hidden'}`}
+										onClick={watchListHandler}
+									>
 										{isWatchList ? <BsBookmarkCheckFill className='text-white' /> : <BsBookmark />}
 									</div>
 								</div>

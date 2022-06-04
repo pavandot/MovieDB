@@ -1,10 +1,10 @@
-import React from "react";
-import { useState } from "react";
-import { getUser } from "../app/features/authSlice";
-import { useAppDispatch } from "../hooks/typedReduxHooks";
+import React from 'react';
+import { useState } from 'react';
+import { getUser } from '../app/features/authSlice';
+import { useAppDispatch } from '../hooks/typedReduxHooks';
 const Login = () => {
-	const [userName, setUserName] = useState("");
-	const [password, setPassword] = useState("");
+	const [userName, setUserName] = useState('');
+	const [password, setPassword] = useState('');
 	const dispatch = useAppDispatch();
 	const submitHandler = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -15,7 +15,7 @@ const Login = () => {
 		dispatch(getUser(userData));
 	};
 	return (
-		<section className='mt-16 mb-28 sm:mb-0 max-w-7xl mx-auto '>
+		<section className='mt-16 mb-28 sm:mb-0 max-w-7xl mx-auto min-h-screen '>
 			<section className='px-4 sm:px-10 py-7 '>
 				<h1 className='text-2xl font-semibold pb-1'>Login to your account</h1>
 
@@ -52,7 +52,10 @@ const Login = () => {
 						/>
 					</div>
 
-					<button type='submit' className='text-white bg-secondary hover:opacity-95 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg  w-full sm:w-auto px-5 py-2.5 text-center '>
+					<button
+						type='submit'
+						className='text-white bg-secondary hover:opacity-95 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg  w-full sm:w-auto px-5 py-2.5 text-center '
+					>
 						Submit
 					</button>
 				</form>

@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { BiSearch } from "react-icons/bi";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from 'react';
+import { BiSearch } from 'react-icons/bi';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // Types
 type SearchParams = {
@@ -8,17 +8,17 @@ type SearchParams = {
 };
 
 // Hooks
-import useSearchMedia from "../hooks/useSearchMedia";
+import useSearchMedia from '../hooks/useSearchMedia';
 
 // Components
-import SearchComp from "../components/search/SearchComp";
-import Spinner from "../components/ui/Spinner";
+import SearchComp from '../components/search/SearchComp';
+import Spinner from '../components/ui/Spinner';
 
 const Search = () => {
 	const navigateTo = useNavigate();
 	const searchRef = useRef<HTMLInputElement>(null);
 	const params = useParams<keyof SearchParams>() as SearchParams;
-	const searchText = params.id.replace("-", " ");
+	const searchText = params.id.replace('-', ' ');
 	const { data } = useSearchMedia(searchText);
 
 	const movies = data?.moviesResults.movies;
@@ -27,20 +27,23 @@ const Search = () => {
 	const [isMovie, setIsMovie] = useState(true);
 	useEffect(() => {
 		if (!params.id) {
-			navigateTo("/");
+			navigateTo('/');
 		}
 	}, [movies, tv, navigateTo]);
 
 	const submitHandler = (e: React.FormEvent) => {
 		e.preventDefault();
-		navigateTo("/search/" + searchRef.current!.value.replace(" ", "-"));
+		navigateTo('/search/' + searchRef.current!.value.replace(' ', '-'));
 	};
 
 	return (
 		<>
 			{movies && tv ? (
-				<section className='mt-20 w-full'>
-					<form onSubmit={submitHandler} className='flex items-center border-2 py-3 px-10 space-x-2 max-w-6xl mx-5 md:mx-10 xl:mx-auto'>
+				<section className='mt-20 w-full min-h-screen'>
+					<form
+						onSubmit={submitHandler}
+						className='flex items-center border-2 py-3 px-10 space-x-2 max-w-6xl mx-5 md:mx-10 xl:mx-auto'
+					>
 						<BiSearch className='text-lg ' />
 						<input type='text' placeholder={searchText} ref={searchRef} required className='w-full outline-none italic' />
 					</form>
@@ -48,10 +51,16 @@ const Search = () => {
 						<div className=' hidden md:block w-1/4 max-w-[360px] shadow-md rounded-lg self-start'>
 							<h1 className='bg-blue-400 text-left h-16 p-5 font-bold  text-lg text-white rounded-t-lg'>Search Results</h1>
 							<ul>
-								<li className={`flex justify-between px-5 py-3 ${isMovie && "bg-gray-200 "} cursor-pointer `} onClick={() => setIsMovie(true)}>
+								<li
+									className={`flex justify-between px-5 py-3 ${isMovie && 'bg-gray-200 '} cursor-pointer `}
+									onClick={() => setIsMovie(true)}
+								>
 									Movies <span className=' bg-white p-1 rounded-lg'>{!!movies && movies.length}</span>
 								</li>
-								<li className={`flex justify-between px-5 py-3 ${!isMovie && "bg-gray-200"} cursor-pointer rounded-b-lg`} onClick={() => setIsMovie(false)}>
+								<li
+									className={`flex justify-between px-5 py-3 ${!isMovie && 'bg-gray-200'} cursor-pointer rounded-b-lg`}
+									onClick={() => setIsMovie(false)}
+								>
 									Tv Shows <span className=' bg-white p-1 rounded-lg'>{!!tv && tv.length}</span>
 								</li>
 							</ul>
@@ -59,10 +68,20 @@ const Search = () => {
 						<div className='md:hidden'>
 							<div className='mb-10 md:m-10 flex items-center'>
 								<div className='flex items-center mx-5 border-2 border-primary rounded  justify-between'>
-									<div className={`py-1 px-3 ${isMovie ? "bg-primary text-white " : "  bg-white text-gray-800"} cursor-pointer `} onClick={() => setIsMovie(true)}>
+									<div
+										className={`py-1 px-3 ${
+											isMovie ? 'bg-primary text-white ' : '  bg-white text-gray-800'
+										} cursor-pointer `}
+										onClick={() => setIsMovie(true)}
+									>
 										<p>Movies</p>
 									</div>
-									<div className={`py-1 px-4 ${!isMovie ? "bg-primary text-white " : "  bg-white text-gray-800"}   cursor-pointer `} onClick={() => setIsMovie(false)}>
+									<div
+										className={`py-1 px-4 ${
+											!isMovie ? 'bg-primary text-white ' : '  bg-white text-gray-800'
+										}   cursor-pointer `}
+										onClick={() => setIsMovie(false)}
+									>
 										<p>TV</p>
 									</div>
 								</div>

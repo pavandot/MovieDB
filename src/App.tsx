@@ -1,15 +1,16 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 
 // Pages
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Search from "./pages/Search";
-import Favorites from "./pages/Favorites";
-import WatchList from "./pages/WatchList";
-import Media from "./pages/Media";
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Search from './pages/Search';
+import Favorites from './pages/Favorites';
+import WatchList from './pages/WatchList';
+import Media from './pages/Media';
+import Footer from './components/footer/Footer';
 
 // Components
-import Navbar from "./components/navbar/Navbar";
+import Navbar from './components/navbar/Navbar';
 
 function App() {
 	return (
@@ -25,6 +26,7 @@ function App() {
 					<Route path='/watchlist' element={<WatchList />} />
 				</Routes>
 			</div>
+			<Footer />
 		</section>
 	);
 }
