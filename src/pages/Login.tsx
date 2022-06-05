@@ -14,19 +14,26 @@ const Login = () => {
 		};
 		dispatch(getUser(userData));
 	};
+	const guestUserHandler = () => {
+		const userData = {
+			userName: 'pavandot',
+			password: '0850',
+		};
+		dispatch(getUser(userData));
+	};
 	return (
 		<section className='mt-16 mb-28 sm:mb-0 max-w-7xl mx-auto min-h-screen '>
-			<section className='px-4 sm:px-10 py-7 '>
+			<section className='px-4 sm:px-10 py-7 max-w-lg mx-auto '>
 				<h1 className='text-2xl font-semibold pb-1'>Login to your account</h1>
 
-				<p className='mt-5 font-semibold'>Demo Account:</p>
+				{/* <p className='mt-5 font-semibold'>Demo Account:</p>
 				<p>UserName: pavandot</p>
-				<p>Password: 0850</p>
+				<p>Password: 0850</p> */}
 
 				<form onSubmit={submitHandler}>
 					<div className='mb-6 mt-5'>
 						<label htmlFor='text' className='block mb-2  font-medium text-gray-900 '>
-							Your User Name
+							User Name
 						</label>
 						<input
 							type='text'
@@ -40,7 +47,7 @@ const Login = () => {
 					</div>
 					<div className='mb-6'>
 						<label htmlFor='password' className='block mb-2  font-medium text-gray-900'>
-							Your password
+							Password
 						</label>
 						<input
 							type='password'
@@ -48,17 +55,28 @@ const Login = () => {
 							className='bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 '
 							required
 							value={password}
+							placeholder='password'
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</div>
-
 					<button
 						type='submit'
-						className='text-white bg-secondary hover:opacity-95 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg  w-full sm:w-auto px-5 py-2.5 text-center '
+						className='text-white  bg-secondary hover:opacity-95 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg  w-full  px-5 py-2.5 text-center '
 					>
 						Submit
 					</button>
 				</form>
+				<div className=' mt-5 '>
+					<button className=' text-secondary text-center w-full hover:underline mb-5 ' onClick={guestUserHandler}>
+						Continue as Guest
+					</button>
+					<div className='flex justify-center w-full space-x-2'>
+						<span>Don't have an account?</span>
+						<a href='https://www.themoviedb.org/signup' className=' text-secondary text-center  hover:underline '>
+							Sign Up
+						</a>
+					</div>
+				</div>
 			</section>
 		</section>
 	);
