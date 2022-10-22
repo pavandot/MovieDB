@@ -55,11 +55,11 @@ const WatchListComp = ({ media, isMovie }: WatchListCompType) => {
 					<div className='w-10 font-bold absolute z-40  bottom-[-18px] left-[10px] sm:hidden '>
 						<CircularProgressbar
 							value={rating}
-							text={`${rating}%`}
+							text={`${Math.floor(rating) || 0}%`}
 							backgroundPadding={6}
 							strokeWidth={6}
 							styles={buildStyles({
-								textSize: '35px',
+								textSize: '27px',
 								textColor: 'white',
 								backgroundColor: '#081C22',
 								pathColor: '#21D07A',
@@ -73,8 +73,8 @@ const WatchListComp = ({ media, isMovie }: WatchListCompType) => {
 						src={posterImg}
 						alt={title}
 						width='133'
-						height='200'
-						className='hidden sm:block rounded-tl-lg rounded-bl-lg object-fill cursor-pointer'
+						height=''
+						className='hidden sm:block h-full rounded-tl-lg rounded-bl-lg object-cover cursor-pointer'
 					/>
 				</Link>
 				<div className='p-5 w-full flex flex-col justify-between'>
@@ -82,11 +82,11 @@ const WatchListComp = ({ media, isMovie }: WatchListCompType) => {
 						<div className='w-10 font-bold hidden sm:block '>
 							<CircularProgressbar
 								value={rating}
-								text={`${rating}%`}
+								text={`${Math.floor(rating) || 0}%`}
 								backgroundPadding={6}
 								strokeWidth={6}
 								styles={buildStyles({
-									textSize: '35px',
+									textSize: '27px',
 									textColor: 'white',
 									backgroundColor: '#081C22',
 									pathColor: '#21D07A',
@@ -99,7 +99,7 @@ const WatchListComp = ({ media, isMovie }: WatchListCompType) => {
 							<p className=' text-gray-500'>{date}</p>
 						</div>
 					</div>
-					<div className='hidden sm:block '>
+					<div className='hidden sm:block md:py-2 '>
 						<p className=' line-clamp-3'>{overview}</p>
 					</div>
 					<div className=' flex justify-around mt-5 sm:justify-start sm:mt-0 space-x-4 '>

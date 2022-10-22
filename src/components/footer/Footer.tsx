@@ -12,7 +12,7 @@ const Footer = () => {
 			<Link to='/'>
 				<h1 className='logo pointer text-2xl font-bold text-style  '>M D B</h1>
 			</Link>
-			<h1>Made with ❤️ by pavan</h1>
+			{/* <h1>Made with ❤️ by pavan</h1> */}
 			<p
 				className='hover:bg-white rounded h-7 w-7 flex justify-center items-center hover:text-primary transition duration-300 cursor-pointer'
 				onClick={() => scrollTo()}

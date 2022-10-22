@@ -18,7 +18,7 @@ const WatchList = () => {
 	return (
 		<div className=' min-h-screen'>
 			<p className='m-10'>1</p>
-			<div className=' m-10  flex items-center max-w-7xl  xl:mx-auto mx-5 md:mx-10'>
+			<div className=' m-10  flex items-center max-w-7xl  2xl:mx-auto mx-5 md:mx-10'>
 				<p className=' text-xl md:text-2xl font-semibold'>My WatchList</p>
 				<div className='flex items-center mx-5 border-2 border-primary  rounded justify-between'>
 					<div

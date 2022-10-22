@@ -156,7 +156,7 @@ const Media = () => {
 	if (isMediaLoading) {
 		return <Spinner />;
 	}
-
+	console.log(Math?.floor(rating));
 	return (
 		<>
 			{isMediaSuccess && (
@@ -181,11 +181,11 @@ const Media = () => {
 									<div className='w-16 font-bold rating-position'>
 										<CircularProgressbar
 											value={rating}
-											text={`${rating}%`}
+											text={`${Math.floor(rating) || 0}%`}
 											backgroundPadding={6}
 											strokeWidth={6}
 											styles={buildStyles({
-												textSize: '30px',
+												textSize: '25px',
 												textColor: 'white',
 												backgroundColor: '#081C22',
 												pathColor: '#21D07A',
