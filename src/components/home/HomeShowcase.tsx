@@ -121,7 +121,7 @@ const HomeShowcase = ({ media, isMovie }: HomeShowcasePropsType) => {
 				<div className='w-10 font-bold absolute z-40  bottom-[-18px] left-[10px]'>
 					<CircularProgressbar
 						value={rating * 10}
-						text={`${rating * 10}%`}
+						text={`${Math.round(rating * 10)}%`}
 						backgroundPadding={6}
 						strokeWidth={6}
 						styles={buildStyles({

@@ -181,7 +181,7 @@ const Media = () => {
 									<div className='w-16 font-bold rating-position'>
 										<CircularProgressbar
 											value={rating}
-											text={`${Math.floor(rating) || 0}%`}
+											text={`${Math.round(rating) || 0}%`}
 											backgroundPadding={6}
 											strokeWidth={6}
 											styles={buildStyles({
